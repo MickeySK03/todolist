@@ -1,0 +1,33 @@
+.todo {
+  display: grid;
+  grid-template-rows: 64px calc(100vh - 64px);
+  grid-template-columns: 320px calc(100vw - 320px);
+}
+
+.todo_header {
+  grid-row: 1/2;
+  grid-column: 1/-1;
+}
+
+.todo_sidebar {
+  grid-row: 2/-1;
+  grid-column: 1 / 1;
+}
+
+.todo_content {
+  grid-row: 2/-1;
+  grid-column: 2/-1;
+}
+
+@media screen and (max-width: 768px) {
+  .todo {
+    &__sidebar {
+      display: none;
+    }
+
+    &__content {
+      grid-row: 2/-1;
+      grid-column: 1/-1;
+    }
+  }
+}
