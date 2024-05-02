@@ -18,7 +18,7 @@ function App() {
         <SideBar />
       </div>
       <div className="todo_content">
-        <h1>Inbox</h1>
+        <div className="todo_Inbox">Inbox</div>
         <div>
           <TodoCreate />
         </div>

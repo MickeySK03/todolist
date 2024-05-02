@@ -27,15 +27,13 @@
 }
 
 @media screen and (max-width: 768px) {
-  .todo {
-    &__sidebar {
-      display: none;
-    }
+  .todo__sidebar {
+    display: none;
+  }
 
-    &__content {
-      grid-row: 2/-1;
-      grid-column: 1/-1;
-    }
+  .todo__content {
+    grid-row: 2/-1;
+    grid-column: 1/-1;
   }
 }
 
@@ -63,4 +61,41 @@
   justify-content: center;
   align-items: center;
   font-size: 24px * 0.9;
+}
+
+.todo_Inbox {
+  font-size: 2.5rem;
+  font-weight: 600;
+  display: flex;
+  gap: 15px;
+  align-items: baseline;
+  padding: 5px 15px;
+}
+
+.todo_form {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 1px solid gainsboro;
+  gap: 10px;
+  padding: 10px;
+}
+
+.todo_form_input {
+  border: none;
+  border-radius: 3px;
+  padding: 10px 10px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.todo_form_button {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+#inputTask {
+  font-weight: 600;
 }

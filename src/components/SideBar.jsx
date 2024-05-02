@@ -39,11 +39,6 @@ export default function SideBar() {
               <ListItemText primary="Trash" />
             </ListItemButton>
           </ListItem>
-          {/* <ListItem disablePadding>
-            <ListItemButton component="a" href="#simple-list">
-              <ListItemText primary="Spam" />
-            </ListItemButton>
-          </ListItem> */}
         </List>
       </nav>
     </Box>
