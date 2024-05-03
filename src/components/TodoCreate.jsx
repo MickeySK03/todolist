@@ -1,9 +1,9 @@
 import AddIcon from "@mui/icons-material/Add";
-import { useState } from "react";
 import TodoForm from "./TodoForm";
+import useTodo from "../hooks/useTodo";
 
 export default function TodoCreate() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, setIsOpen } = useTodo();
   const handleClick = () => setIsOpen(!isOpen);
   return (
     <>

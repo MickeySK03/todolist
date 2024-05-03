@@ -1,8 +1,16 @@
 import Button from "@mui/material/Button";
+import { useState } from "react";
+import useTodo from "../hooks/useTodo";
 
-// eslint-disable-next-line react/prop-types
-export default function TodoForm({ setIsOpen }) {
+export default function TodoForm() {
+  const { setIsOpen } = useTodo();
+  const [taskInput, setTaskInput] = useState("");
   const handleCancel = () => setIsOpen(false);
+  // const handleAddTask = (e) => {
+  //   e.preventDefault();
+  // };
+  const handleChange = (e) => setTaskInput(e.target.value);
+
   return (
     <form className="todo_form">
       <input
@@ -10,6 +18,8 @@ export default function TodoForm({ setIsOpen }) {
         className="todo_form_input"
         placeholder="Task name"
         id="inputTask"
+        value={taskInput}
+        onChange={handleChange}
       />
       <input
         type="text"
