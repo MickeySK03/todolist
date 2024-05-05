@@ -7,6 +7,7 @@ import "./App.css";
 import AppBar from "./components/AppBar";
 import SideBar from "./components/SideBar";
 import TodoCreate from "./components/TodoCreate";
+import TodoLists from "./components/TodoLists";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <div className="todo_Inbox">Inbox</div>
         <div>
           <TodoCreate />
+          <TodoLists />
         </div>
       </div>
     </div>

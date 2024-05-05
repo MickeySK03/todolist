@@ -3,12 +3,14 @@ import { useState } from "react";
 import useTodo from "../hooks/useTodo";
 
 export default function TodoForm() {
-  const { setIsOpen } = useTodo();
+  const { setIsOpen, createTodo } = useTodo();
   const [taskInput, setTaskInput] = useState("");
   const handleCancel = () => setIsOpen(false);
-  // const handleAddTask = (e) => {
-  //   e.preventDefault();
-  // };
+  const handleAddTask = (e) => {
+    e.preventDefault();
+    createTodo(taskInput);
+    setIsOpen(false);
+  };
   const handleChange = (e) => setTaskInput(e.target.value);
 
   return (
@@ -31,7 +33,9 @@ export default function TodoForm() {
         <Button variant="outlined" color="error" onClick={handleCancel}>
           Cancel
         </Button>
-        <Button variant="contained">Add Task</Button>
+        <Button variant="contained" onClick={handleAddTask}>
+          Add Task
+        </Button>
       </div>
     </form>
   );
