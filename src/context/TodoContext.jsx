@@ -17,12 +17,17 @@ export default function TodoContextProvider({ children }) {
     setAllTodos((prev) => [newTodo, ...prev]);
   };
 
+  const deleteTodo = (todoId) => {
+    setAllTodos((prev) => prev.filter((todo) => todo.id !== todoId));
+  };
+
   const objTodo = {
     allTodos,
     setAllTodos,
     isOpen,
     setIsOpen,
     createTodo,
+    deleteTodo,
   };
   return (
     <TodoContext.Provider value={objTodo}>{children}</TodoContext.Provider>
