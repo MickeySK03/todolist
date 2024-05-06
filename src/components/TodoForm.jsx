@@ -1,14 +1,23 @@
+/* eslint-disable react/prop-types */
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import useTodo from "../hooks/useTodo";
 
-export default function TodoForm() {
+export default function TodoForm({ editTodo, setTodoOpenForm }) {
   const { setIsOpen, createTodo } = useTodo();
-  const [taskInput, setTaskInput] = useState("");
-  const handleCancel = () => setIsOpen(false);
+  const [taskInput, setTaskInput] = useState(editTodo?.task || "");
+
+  const handleCancel = () => {
+    if (editTodo) {
+      setTodoOpenForm(false);
+    } else setIsOpen(false);
+  };
   const handleAddTask = (e) => {
     e.preventDefault();
     createTodo(taskInput);
+    if (editTodo) {
+      setTodoOpenForm(false);
+    }
     setIsOpen(false);
   };
   const handleChange = (e) => setTaskInput(e.target.value);
