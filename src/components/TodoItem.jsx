@@ -15,23 +15,19 @@ import { ListItemSecondaryAction } from "@mui/material";
 import TodoForm from "./TodoForm";
 
 export default function TodoItem({ todo }) {
-  const { deleteTodo } = useTodo();
+  const { deleteTodo, checkListStatus } = useTodo();
   const [todoOpenForm, setTodoOpenForm] = useState(false);
-  const [checked, setChecked] = useState([0]);
+  const [checked, setChecked] = useState(todo?.status || false);
+  console.log("check status", checked);
 
-  const handleEdit = () => setTodoOpenForm(!todoOpenForm);
+  const handleEdit = () => {
+    setTodoOpenForm(!todoOpenForm);
+  };
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
+  const handleToggle = () => {
+    const newChecked = !checked;
     setChecked(newChecked);
+    checkListStatus(todo.id, newChecked);
   };
   return (
     <>
@@ -39,18 +35,14 @@ export default function TodoItem({ todo }) {
         <TodoForm editTodo={todo} setTodoOpenForm={setTodoOpenForm} />
       ) : (
         <ListItem key={todo.id} disablePadding>
-          <ListItemButton
-            role={undefined}
-            onClick={handleToggle(todo.task)}
-            dense
-          >
+          <ListItemButton role={undefined} onClick={handleToggle} dense>
             <ListItemIcon>
               <Checkbox
                 edge="start"
-                checked={checked.indexOf(todo.task) !== -1}
-                tabIndex={-1}
+                checked={checked}
+                // tabIndex={-1}
                 disableRipple
-                inputProps={{ "aria-labelledby": todo.id }}
+                // inputProps={{ "aria-labelledby": todo.id }}
                 icon={<RadioButtonUncheckedOutlinedIcon />}
                 checkedIcon={<CheckCircleIcon />}
                 sx={{ "& .MuiSvgIcon-root": { fontSize: 32 } }}
@@ -58,8 +50,9 @@ export default function TodoItem({ todo }) {
             </ListItemIcon>
             <ListItemText
               id={todo.id}
-              primary={todo.task}
+              primary={todo.task.header}
               primaryTypographyProps={{ fontSize: "20px" }}
+              secondary={todo.task.description}
             />
           </ListItemButton>
           <ListItemSecondaryAction sx={{ zIndex: 1 }}>

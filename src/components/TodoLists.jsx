@@ -4,7 +4,7 @@ import TodoItem from "./TodoItem";
 
 export default function TodoLists() {
   const { allTodos } = useTodo();
-
+  console.log(allTodos);
   return (
     <>
       <List sx={{ width: "100%", bgcolor: "background.paper" }}>
