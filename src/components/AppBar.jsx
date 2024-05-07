@@ -7,6 +7,8 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
+import { useEffect, useState } from "react";
+import useTodo from "../hooks/useTodo";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -51,6 +53,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function AppBar() {
+  const { searchTodo } = useTodo();
+  const [searchKeyword, setSearchKeyword] = useState("");
+
+  useEffect(() => {
+    let timeoutId = setTimeout(() => {
+      console.log("Search");
+      if (searchKeyword.trim() !== "") searchTodo(searchKeyword);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [searchKeyword, searchTodo]);
+
+  const handleChangeInput = (e) => {
+    setSearchKeyword(e.target.value);
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <SearchAppBar position="static">
@@ -80,6 +99,8 @@ export default function AppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              value={searchKeyword}
+              onChange={handleChangeInput}
             />
           </Search>
         </Toolbar>

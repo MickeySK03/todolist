@@ -8,6 +8,7 @@ import AppBar from "./components/AppBar";
 import SideBar from "./components/SideBar";
 import TodoCreate from "./components/TodoCreate";
 import TodoLists from "./components/TodoLists";
+import FilterTodo from "./components/FilterTodos";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
         <SideBar />
       </div>
       <div className="todo_content">
+        <div>
+          <FilterTodo />
+        </div>
         <div className="todo_Inbox">Inbox</div>
         <div>
           <TodoCreate />

@@ -18,7 +18,6 @@ export default function TodoItem({ todo }) {
   const { deleteTodo, checkListStatus } = useTodo();
   const [todoOpenForm, setTodoOpenForm] = useState(false);
   const [checked, setChecked] = useState(todo?.status || false);
-  console.log("check status", checked);
 
   const handleEdit = () => {
     setTodoOpenForm(!todoOpenForm);

@@ -3,12 +3,12 @@ import useTodo from "../hooks/useTodo";
 import TodoItem from "./TodoItem";
 
 export default function TodoLists() {
-  const { allTodos } = useTodo();
-  console.log(allTodos);
+  const { showTodos } = useTodo();
+
   return (
     <>
       <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-        {allTodos.map((todo) => (
+        {showTodos.map((todo) => (
           <TodoItem key={todo.id} todo={todo} />
         ))}
       </List>

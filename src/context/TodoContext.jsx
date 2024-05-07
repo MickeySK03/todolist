@@ -7,12 +7,12 @@ export const TodoContext = createContext();
 export default function TodoContextProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   const [allTodos, setAllTodos] = useState([]);
-  const [items, setItems] = useState([]);
+  const [showTodos, setShowTodos] = useState([]);
 
   useEffect(() => {
     const getTodo = JSON.parse(localStorage.getItem("todolist") || "[]");
     setAllTodos(getTodo);
-    setItems(getTodo);
+    setShowTodos(getTodo);
   }, []);
 
   const createTodo = (TaskInput) => {
@@ -22,8 +22,8 @@ export default function TodoContextProvider({ children }) {
       status: false,
     };
     setAllTodos((prev) => [newTodo, ...prev]);
-    setItems((prev) => [newTodo, ...prev]);
-    localStorage.setItem("todolist", JSON.stringify([newTodo, ...items]));
+    setShowTodos((prev) => [newTodo, ...prev]);
+    localStorage.setItem("todolist", JSON.stringify([newTodo, ...allTodos]));
   };
 
   const editTodoTask = (todoId, updateTask) => {
@@ -31,7 +31,7 @@ export default function TodoContextProvider({ children }) {
       todo.id === todoId ? { ...todo, task: updateTask } : todo
     );
     setAllTodos(updateTodos);
-    setItems(updateTodos);
+    setShowTodos(updateTodos);
     localStorage.setItem("todolist", JSON.stringify(updateTodos));
   };
 
@@ -40,15 +40,25 @@ export default function TodoContextProvider({ children }) {
       todo.id === todoId ? { ...todo, status: status } : todo
     );
     setAllTodos(updateCheckList);
-    setItems(updateCheckList);
+    setShowTodos(updateCheckList);
     localStorage.setItem("todolist", JSON.stringify(updateCheckList));
   };
 
   const deleteTodo = (todoId) => {
     const deleteItem = allTodos.filter((todo) => todo.id !== todoId);
     setAllTodos(deleteItem);
-    setItems(deleteItem);
+    setShowTodos(deleteItem);
     localStorage.setItem("todolist", JSON.stringify(deleteItem));
+  };
+
+  const searchTodo = (keyword) => {
+    if (keyword.trim() === "") setShowTodos(allTodos);
+    const newItems = allTodos.filter(
+      (todoObj) =>
+        todoObj.task.header.toLowerCase().includes(keyword.toLowerCase()) ||
+        todoObj.task.description.toLowerCase().includes(keyword.toLowerCase())
+    );
+    setShowTodos(newItems);
   };
 
   const objTodo = {
@@ -60,6 +70,9 @@ export default function TodoContextProvider({ children }) {
     deleteTodo,
     editTodoTask,
     checkListStatus,
+    searchTodo,
+    showTodos,
+    setShowTodos,
   };
   return (
     <TodoContext.Provider value={objTodo}>{children}</TodoContext.Provider>
